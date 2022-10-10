@@ -15,21 +15,13 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('admin', function () {
-    return 'hi admin';
-})->middleware('role:admin');
 
-Route::get('user', function () {
-    return 'hi user';
-})->middleware('role:user');
+Route::redirect('/', '/prototype/login');
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
+Route::prefix('prototype')->group(function () {
+    Route::get('/login', function () {
+        return Inertia::render('Prototype/login');
+    });
 });
 
 Route::get('/dashboard', function () {
